@@ -13,11 +13,13 @@ mongoose.connect('mongodb+srv://readWriteUser:468qGC2mDTNNyAyd@todo-app.rfqkagj.
     .then(() => console.log('Connected to DB'))
     .catch(console.error)
 
+// routing and async await
 app.get('/todos', async (req, res) => {
     const todos = await Todo.find();
     res.json(todos)
 })
 
+// routing
 app.post('/todos', (req,res) => {
 
     const todo = new Todo({
@@ -28,18 +30,22 @@ app.post('/todos', (req,res) => {
     res.json(todo);
 })
 
+// routing and async await
 app.delete('/todos/:id', async (req,res) => {
+    // database query and request object
     const result = await Todo.findByIdAndDelete(req.params.id);
+    // response object
     res.json(result)
 })
 
+// routing and async await
 app.put('/todos/:id', async (req, res) => {
     const todo = await Todo.findById(req.params.id);
 
     todo.completed = !todo.completed;
 
     todo.save()
-
+    // response object
     res.json(todo)
 
 })
